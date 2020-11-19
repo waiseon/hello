@@ -1,0 +1,60 @@
+cathay.cronJobsConfig:
+  jobList:
+
+    - jobId: testJob
+      springJobId: testJob
+      cronExpression: 0 0/10 * * * ? *
+      #        cronExpression: 0 0/20 * * * ? *
+      params: threadSize=1
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: test
+
+    - jobId: generateHSBCReportJob
+      springJobId: generateHSBCReportJob
+      cronExpression: 0 0 9 ? * MON
+#      cronExpression: 0 0 9 * * ?
+      params: threadSize=1,WO=WO0000001091539
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: RptServices
+
+    - jobId: promotionBookingCount
+      springJobId: promotionBookingCount
+      cronExpression: 0 0/5 * * * ? *
+      params: threadSize=1,WO=WO0000001479907
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: RptServices
+
+    - jobId: bookingCountTaskletJob
+      springJobId: bookingCountTaskletJob
+      cronExpression: 5 0/15 * * * ?
+      params: threadSize=1
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: Booking Count
+
+    - jobId: RCBCJob
+      springJobId: RCBCJob
+      cronExpression: 0 1 9 ? * * *
+      params: threadSize=1,WO=WO0000001479921
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: RptServices
+
+    - jobId: CITIHKGJob
+      springJobId: CITIHKGJob
+      cronExpression: 0 3 9 ? * * *
+      params: threadSize=1,WO=WO0000001479876
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: RptServices
+
+    - jobId: CITIPHJob
+      springJobId: CITIPHJob
+      cronExpression: 0 5 9 ? * * *
+      params: threadSize=1,WO=WO0000001517985
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: RptServices
+
+    - jobId: VISAPromotionJob
+      springJobId: VISAPromotionJob
+      cronExpression: 0 0 8,17 ? * * *
+      params: threadSize=1,WO=WOJULVISA
+      startOnHold: ${cathay.cronjob.start.on.hold}
+      groupId: RptServices
