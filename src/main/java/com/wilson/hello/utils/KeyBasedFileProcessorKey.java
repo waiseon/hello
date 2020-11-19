@@ -261,7 +261,7 @@ public class KeyBasedFileProcessorKey {
         OutputStream out = new BufferedOutputStream(new FileOutputStream(outputFileName));
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] decode = decoder.decode(encryKey);
-        PGPPublicKey encKey = PGPExampleUtil.readPublicKey(decode);
+        PGPPublicKey encKey = PGPExampleUtil.readPublicKey(new ByteArrayInputStream(decode));
 
         encryptFile(out, inputFileName, encKey, armor, withIntegrityCheck);
 
