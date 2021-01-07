@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.wilson.hello.dto.DecryptedRequestDTO;
 import com.wilson.hello.dto.Person;
 import com.wilson.hello.utils.EncryptionUtil;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
 @RestController
@@ -23,9 +26,21 @@ public class HelloController {
     private EncryptionUtil encryptionUtil;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public boolean test(HttpServletRequest request) {
-        String reg = "^[0-9]{0,20}(\\.[0-9]{0,9}){0,1}$";
+    public String test(HttpServletRequest request) {
+//        String reg = "^[0-9]{0,20}(\\.[0-9]{0,9}){0,1}$";
+        String reg = "^[0-9]{1,2}-[a-zA-Z]{3}-[0-9]{2}$";
         String input = request.getParameter("input");
+        String format = "dd-MMM-yy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        if (Pattern.matches(reg, input)){
+            try {
+                simpleDateFormat.setLenient(false);
+                System.out.println(simpleDateFormat.parse(input));
+                return simpleDateFormat.parse(input).toString();
+            } catch (ParseException e) {
+                return "wrong date format";
+            }
+        }
 //        String reg = request.getParameter("reg");
 //        Person person = new Person();
 //        person.setName("Wilson");
@@ -33,7 +48,7 @@ public class HelloController {
 //        Person.Job job = new Person.Job();
 //        job.setTitle("SSE");
 //        person.setJob(job);
-        return Pattern.matches(reg, input);
+        return "not match pattern";
     }
 
     @GetMapping(value = "/encrypt")
