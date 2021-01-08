@@ -51,6 +51,15 @@ public class HelloController {
         return "not match pattern";
     }
 
+    @RequestMapping(value = "/test/regex", method = RequestMethod.GET)
+    public boolean testRegex(@RequestHeader(name = "regex") String regexHeader, @RequestHeader(name = "to_validate") String toValidateHeader,
+            @RequestParam(name = "regex") String regex, @RequestParam(name = "to_validate") String toValidate){
+        if (Pattern.matches(regexHeader, toValidateHeader)){
+            return true;
+        }
+        return false;
+    }
+
     @GetMapping(value = "/encrypt")
     public ResponseEntity<String> encryption(@RequestBody JsonNode jsonObject) throws Exception {
         String encryptedData = encryptionUtil.encrypt(jsonObject);
