@@ -53,7 +53,7 @@ public class HelloController {
 
     @RequestMapping(value = "/test/regex", method = RequestMethod.GET)
     public boolean testRegex(@RequestHeader(name = "regex") String regexHeader, @RequestHeader(name = "to_validate") String toValidateHeader,
-            @RequestParam(name = "regex") String regex, @RequestParam(name = "to_validate") String toValidate){
+            @RequestParam(name = "regex", required = false) String regex, @RequestParam(name = "to_validate", required = false) String toValidate){
         if (Pattern.matches(regexHeader, toValidateHeader)){
             return true;
         }
